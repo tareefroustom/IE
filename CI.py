@@ -7,6 +7,7 @@ from ktrain import text
 
 
 import nltk
+nltk.download('punkt')
 Tokenizer  = nltk.data.load('tokenizers/punkt/english.pickle')
 
 
