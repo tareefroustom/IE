@@ -13,7 +13,7 @@ Tokenizer  = nltk.data.load('tokenizers/punkt/english.pickle')
 # Configure the page
 st.set_page_config(page_title="IE", page_icon="", layout="wide")
 
-Model = ktrain.load_predictor("C:/Users/taree/Downloads/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1-20211116T084910Z-001/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1")
+Model = ktrain.load_predictor("/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1-20211116T084910Z-001/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1")
 def UntangleTokens(TokenText, Tokens):
     Pass = True
     for Token in Tokens:
