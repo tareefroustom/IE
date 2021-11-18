@@ -4,17 +4,20 @@ import spacy
 import re
 from spacy import displacy
 from ktrain import text
+from goose3 import Goose
 
+Goo = Goose()
+
+        
 
 import nltk
-nltk.download('punkt')
 Tokenizer  = nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 # Configure the page
 st.set_page_config(page_title="IE", page_icon="", layout="wide")
 
-Model = ktrain.load_predictor("./July-07-2021-ca_8500_Sentences_News_Info_Extraction_1-20211116T084910Z-001/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1")
+Model = ktrain.load_predictor("C:/Users/taree/Downloads/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1-20211116T084910Z-001/July-07-2021-ca_8500_Sentences_News_Info_Extraction_1")
 def UntangleTokens(TokenText, Tokens):
     Pass = True
     for Token in Tokens:
@@ -46,6 +49,22 @@ def Censor(Token, TokenText):
     
 if __name__ == '__main__':
 
+    Articles = ""
+
+    TextBoxes, Nargin = st.columns((3.2, 1))
+    with TextBoxes:
+        URL = st.text_input('Enter a link', "", key=1)
+        Text = st.text_input('Enter a link', "", key=2)
+    
+    if URL:
+        Article = Goo.extract(url=URL).cleaned_text
+    elif Text:
+        Article = Text
+    else:
+        Article = """Pegcetacoplan is a PEGylated pentadecapeptide developed by Apellis Pharmaceuticals for the treatment of complement-mediated diseases. It binds to complement component 3 and its activation fragment C3b, controlling the cleavage of C3 and the generation of the downstream effectors of complement activation and thus both C3b-mediated extravascular haemolysis and terminal complement-mediated intravascular haemolysis. Pegcetacoplan is the first C3-targeted paroxysmal nocturnal haemoglobinuria therapy to be approved in the USA, where it is indicated for the treatment of adults with PNH, including those switching from C5 inhibitor therapy with eculizumab and ravulizumab. A regulatory assessment of pegcetacoplan for the treatment of PNH is currently underway in the EU and Australia. Pegcetacoplan is also being investigated as a therapeutic option in other complement-mediated diseases, including age related macular degeneration, C3 glomerulopathy and autoimmune haemolytic anaemia. The recommended dosage regimen of pegcetacoplan is 1080 mg twice weekly, administered as a subcutaneous infusion via an infusion pump with a ≥ 20 mL reservoir. This article summarizes the milestones in the development of pegcetacoplan leading to this first approval for the treatment of adults with PNH."""
+
+    
+
     Left_Margin, Left_Gap, Main_Text, Right_Margin = st.columns((1, 0.2, 2, 1))
 
     st.markdown("""<head>
@@ -59,9 +78,6 @@ if __name__ == '__main__':
     st.sidebar.write("""<div style="font-size: 25px; font-family:Titillium Web">IE Demo</div>""",unsafe_allow_html=True)
     st.sidebar.write("""<div style="font-size: 16px; font-family:Titillium Web"><b>Insights Extractor</div>""",unsafe_allow_html=True)
     
-    Article = """Pegcetacoplan is a PEGylated pentadecapeptide developed by Apellis Pharmaceuticals for the treatment of complement-mediated diseases. It binds to complement component 3 and its activation fragment C3b, controlling the cleavage of C3 and the generation of the downstream effectors of complement activation and thus both C3b-mediated extravascular haemolysis and terminal complement-mediated intravascular haemolysis. Pegcetacoplan is the first C3-targeted paroxysmal nocturnal haemoglobinuria therapy to be approved in the USA, where it is indicated for the treatment of adults with PNH, including those switching from C5 inhibitor therapy with eculizumab and ravulizumab. A regulatory assessment of pegcetacoplan for the treatment of PNH is currently underway in the EU and Australia. Pegcetacoplan is also being investigated as a therapeutic option in other complement-mediated diseases, including age related macular degeneration, C3 glomerulopathy and autoimmune haemolytic anaemia. The recommended dosage regimen of pegcetacoplan is 1080 mg twice weekly, administered as a subcutaneous infusion via an infusion pump with a ≥ 20 mL reservoir. This article summarizes the milestones in the development of pegcetacoplan leading to this first approval for the treatment of adults with PNH."""
-
-
     Tagged_Article = ""
     
     Conditions = []
@@ -209,7 +225,7 @@ if __name__ == '__main__':
         if Go:    
             Tagged_Article += Tagged_Sentence + "<br><br>"
         else:
-            Tagged_Article += Sen + "<br><br>"
+            Tagged_Article += """<div style="font-size: 14px; font-family:Titillium Web">{}</div>""".format(Sen) + "<br><br>"
             
             
         for Token in Tokens:
