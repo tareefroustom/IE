@@ -11,6 +11,7 @@ Goo = Goose()
         
 
 import nltk
+nltk.download('punkt')
 Tokenizer  = nltk.data.load('tokenizers/punkt/english.pickle')
 
 
